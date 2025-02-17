@@ -2,7 +2,6 @@ from flask import Flask, jsonify, request
 
 app = Flask(__name__)
 
-# Initialize the status as False
 status = False
 
 @app.route('/status', methods=['GET'])
