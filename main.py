@@ -1,8 +1,9 @@
 from flask import Flask, request, jsonify
-from flask_socketio import SocketIO
+from flask_cors import CORS  # Import CORS
 
 app = Flask(__name__)
-socketio = SocketIO(app, cors_allowed_origins="*")
+
+CORS(app)
 
 hasCargo = False
 
@@ -14,11 +15,8 @@ def get_status():
 def update_status():
     global hasCargo
     data = request.json
-    hasCargo = data.get("hasCargo", hasCargo)
-    
-    socketio.emit('status_update', {"hasCargo": hasCargo})
-    
+    hasCargo = data.get("hasCargo", hasCargo)  # Update only if data has 'hasCargo'
     return jsonify({"message": "Status updated", "status": {"hasCargo": hasCargo}}), 200
 
 if __name__ == '__main__':
-    socketio.run(app, debug=True)
+    app.run(debug=True)
