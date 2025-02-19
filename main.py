@@ -26,7 +26,7 @@ def handle_disconnect():
 @socketio.on('status_update')
 def handle_status_update(data):
     global status
-    status = data.get('status', status)
+    status = bool(data.get('status', status))
     print(f"Received new status: {status}")
 
     socketio.emit('status_update', {"status": status})
