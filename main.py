@@ -32,13 +32,13 @@ def handle_status_update(data):
     socketio.emit('status_update', {"status": status})
 
 @socketio.on('start')
-def handle_start():
+def handle_start(data=None):
     print(f"Received start command")
 
     socketio.emit('start')
 
 @socketio.on('stop')
-def handle_stop():
+def handle_stop(data=None):
     print(f"Received stop command")
 
     socketio.emit('stop')
