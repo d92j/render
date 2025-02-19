@@ -11,6 +11,10 @@ socketio = SocketIO(app, cors_allowed_origins="*")
 
 status = False
 
+@app.route('/')
+def home():
+    return 'Server is live!', 200
+
 @socketio.on('connect')
 def handle_connect():
     print("A client connected")
