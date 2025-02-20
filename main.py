@@ -9,7 +9,7 @@ app = Flask(__name__)
 CORS(app)
 socketio = SocketIO(app, cors_allowed_origins="*")
 
-status = False
+proximity_sensor_status = False
 direction = "Aucune"
 destination = "Aucune"
 
@@ -26,12 +26,12 @@ def handle_disconnect():
     print("A client disconnected")
 
 @socketio.on('status_update')
-def handle_status_update(data):
+def handle_proximity_sensor_update(data):
     global status
-    status = bool(data.get('status', status))
-    print(f"Received new status: {status}")
+    status = bool(data.get('status', proximity_sensor_status))
+    print(f"Received new status: {proximity_sensor_status}")
 
-    socketio.emit('status_update', {"status": status})
+    socketio.emit('status_update', {"status": proximity_sensor_status})
 
 @socketio.on('direction_update')
 def handle_direction_update(data):
