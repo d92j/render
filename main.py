@@ -10,6 +10,8 @@ CORS(app)
 socketio = SocketIO(app, cors_allowed_origins="*")
 
 status = False
+direction = "Aucune"
+destination = "Aucune"
 
 @app.route('/')
 def home():
@@ -30,6 +32,22 @@ def handle_status_update(data):
     print(f"Received new status: {status}")
 
     socketio.emit('status_update', {"status": status})
+
+@socketio.on('direction_update')
+def handle_direction_update(data):
+    global direction
+    status = str(data.get('direction', direction))
+    print(f"Received new direction: {direction}")
+
+    socketio.emit('direction_update', {"direction": direction})
+
+@socketio.on('destination_update')
+def handle_destination_update(data):
+    global destination
+    status = str(data.get('destination', destination))
+    print(f"Received new destination: {destination}")
+
+    socketio.emit('destination_update', {"destination": destination})
 
 @socketio.on('start')
 def handle_start(data=None):
