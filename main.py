@@ -38,7 +38,6 @@ def handle_start(data=None):
     if len(socketio.server.eio.sockets) > 0:
         socketio.emit('start')
 
-
 @socketio.on('stop')
 def handle_stop(data=None):
     print(f"Received stop command")
