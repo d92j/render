@@ -35,13 +35,16 @@ def handle_status_update(data):
 def handle_start(data=None):
     print(f"Received start command")
 
-    #socketio.emit('start')
+    if len(socketio.server.eio.sockets) > 0:
+        socketio.emit('start')
+
 
 @socketio.on('stop')
 def handle_stop(data=None):
     print(f"Received stop command")
 
-    #socketio.emit('stop')
+    if len(socketio.server.eio.sockets) > 0:
+        socketio.emit('stop')
 
 if __name__ == '__main__':
     socketio.run(app, debug=True, host="0.0.0.0")
